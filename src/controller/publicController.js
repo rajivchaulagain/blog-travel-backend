@@ -10,7 +10,8 @@ const getBlogs = asyncHandler(async (req, res) => {
 });
 
 const getBlog = asyncHandler(async (req, res) => {
-    res.send(`param is ${req.params.id}`)
+    const blog = await Blog.findById(req.params.id);
+    res.json(blog)
 });
 
 export const publicController = {

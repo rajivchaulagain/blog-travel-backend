@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 
 const port = process.env.PORT || 8000;
 
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/blogs', publicRoutes);
 
-app.use('/api/user/blog', blogRoutes)
+app.use('/api/user/blogs', blogRoutes)
 
 app.use('/api/users', userRoutes);
 
