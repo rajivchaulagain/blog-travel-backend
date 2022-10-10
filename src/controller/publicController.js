@@ -9,6 +9,14 @@ const getBlogs = asyncHandler(async (req, res) => {
     res.json(blogs)
 });
 
+const getRecentBlogs = asyncHandler(async (req, res) => {
+    const blogs = await Blog.find()
+    const recentPosts = blogs.sort(function (a, b) {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    res.json(recentPosts)
+});
+
 const getBlog = asyncHandler(async (req, res) => {
     const blog = await Blog.findById(req.params.id);
     res.json(blog)
@@ -17,5 +25,6 @@ const getBlog = asyncHandler(async (req, res) => {
 export const publicController = {
     getBlogs,
     getBlog,
+    getRecentBlogs
 };
 

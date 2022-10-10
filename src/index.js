@@ -7,16 +7,19 @@ import userRoutes from './routes/userRoutes.js';
 import { errorHandler } from './middleware/errorMiddleWare.js';
 import { connectDB } from './database/db.js';
 
-const env = dotenv.config();
+dotenv.config();
 
 connectDB();
+
 const app = express();
 
 app.use(express.json());
 
+app.use('/' , express.static('public'));
+
 app.use(cors());
 
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 
 const port = process.env.PORT || 8000;
 

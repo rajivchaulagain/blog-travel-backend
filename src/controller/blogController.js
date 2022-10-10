@@ -10,9 +10,8 @@ const getBlogs = asyncHandler(async (req, res) => {
 });
 
 const getBlog = asyncHandler(async (req, res) => {
-    const blog = await User.findById(req.params.id);
+    const blog = await Blog.findById(req.params.id);
     res.json(blog)
-    console.log({blog});
 });
 
 const updateBlog = asyncHandler(async (req, res) => {
@@ -20,7 +19,8 @@ const updateBlog = asyncHandler(async (req, res) => {
 });
 
 const deleteBlog = asyncHandler(async (req, res) => {
-    res.send(`param is ${req.params.id}`)
+    const deletedBlog = await Blog.deleteOne({ _id: req.params.id });
+    res.status(401).json("blog deleted successfully")
 });
 
 const createBlog = asyncHandler(async (req, res) => {
