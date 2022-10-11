@@ -6,7 +6,6 @@ import { User } from '../models/userModel.js';
 import { generateToken } from '../utils/utils.js';
 
 const getUser = asyncHandler(async (req, res) => {
-    console.log("userr", req.user);
     const { _id, name, email } = await User.findById(req.user._id);
     res.status(200).json({
         id: _id,
@@ -20,7 +19,7 @@ const login = asyncHandler(async (req, res) => {
 
     // Check for user email
     const user = await User.findOne({ email })
-
+    console.log(user);
     if (user && (await bcryt.compare(password, user.password))) {
         res.json({
             _id: user.id,
@@ -35,7 +34,7 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const register = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password ,  } = req.body;
     if (!name || !email || !password) {
         res.status(400)
         throw new Error('Please add all fields')
@@ -55,8 +54,6 @@ const register = asyncHandler(async (req, res) => {
         name, email, password: hashedPassword
     })
 
-    console.log({ user });
-
     if (user) {
         res.status(201).json({
             _id: user.id,
@@ -70,7 +67,6 @@ const register = asyncHandler(async (req, res) => {
         throw new Error("Invalid user data")
     }
 });
-
 
 export const userController = {
     login, register, getUser

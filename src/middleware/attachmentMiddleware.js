@@ -5,7 +5,7 @@ let storage = multer.diskStorage({
     cb(null, 'public')
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname)
+    cb(null, process.env.BASE_URL + file.originalname)
   }
 });
 
