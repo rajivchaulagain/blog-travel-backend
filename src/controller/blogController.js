@@ -15,8 +15,7 @@ const getBlog = asyncHandler(async (req, res) => {
 });
 
 const updateBlog = asyncHandler(async (req, res) => {
-    res.send(`param is ${req.params.id}`)
-    if (!req.body.title || !req.body.description || req.file.filename) {
+    if (!req.body.title || !req.body.description || req.file.filename || req.body.category) {
         res.status(500);
         throw new Error('Please add all fields')
     }
@@ -24,18 +23,20 @@ const updateBlog = asyncHandler(async (req, res) => {
         title: req.body.title,
         description: req.body.description,
         user: req.user.id,
+        category: req.body.category,
         coverImage: req.file.filename
     })
     res.status(200).json(blog)
 });
 
 const deleteBlog = asyncHandler(async (req, res) => {
-    const deletedBlog = await Blog.deleteOne({ _id: req.params.id });
-    res.status(401).json("blog deleted successfully")
+    await Blog.deleteOne({ _id: req.params.id });
+    res.status(201).json("blog deleted successfully")
 });
 
 const createBlog = asyncHandler(async (req, res) => {
-    if (!req.body.title || !req.body.description || !req.file) {
+    console.log(req.body, req.file);
+    if (!req.body.title || !req.body.description || !req.file || !req.body.category) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -43,12 +44,13 @@ const createBlog = asyncHandler(async (req, res) => {
         const blog = await Blog.create({
             title: req.body.title,
             description: req.body.description,
+            category: req.body.category,
             user: req.user.id,
             coverImage: req.file.filename
         })
         res.status(200).json(blog)
     }
-    catch(err) {
+    catch (err) {
         res.status(500).json(`${err}`)
     }
 

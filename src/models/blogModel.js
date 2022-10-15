@@ -11,6 +11,10 @@ const blogSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a title value']
         },
+        category: {
+            type: String,
+            required: [true , 'Please add a category']
+        },
         coverImage: {
            type : String,
         },

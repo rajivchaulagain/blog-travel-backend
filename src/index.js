@@ -6,6 +6,7 @@ import publicRoutes from './routes/publicRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import { errorHandler } from './middleware/errorMiddleWare.js';
 import { connectDB } from './database/db.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -16,6 +17,16 @@ const app = express();
 app.use(express.json());
 
 app.use('/' , express.static('public'));
+
+//serve static assests if production
+
+if(process.env.NODE_ENV === 'production'){
+    //set static folder
+    app.use(express.static('client/build'));
+    app.get('*' , (req , res) => {
+        res.sendFile(path.resolve(__dirname , 'client' , 'build' , 'index.html'));
+    });
+}
 
 app.use(cors());
 
