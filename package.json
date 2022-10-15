@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "heroku-postbuild": "cd ../client && yarn install && yarn run build",
+    "heroku-postbuild": "cd ./client && yarn install && yarn run build",
     "server": "nodemon src/index.js"
   },
   "author": "",
