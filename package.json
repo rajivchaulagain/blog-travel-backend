@@ -5,13 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "heroku-postbuild": "cd ./client && yarn install && yarn run build",
-    "server": "nodemon src/index.js"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix client && yarn run build --prefix client",
+    "server": "nodemon /src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcryptjs": "^2.4.3", 
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
